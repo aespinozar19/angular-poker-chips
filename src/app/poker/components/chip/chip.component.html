@@ -1,1 +1,7 @@
-<p>chip works!</p>
+
+
+<img [src]="chip | chipImage" (click)="Choose(chip)">
+<br>
+<span> {{ chip.color.toString() }} </span>
+<br>
+<span> {{ moneySimbol }} {{  chip.value }} </span>

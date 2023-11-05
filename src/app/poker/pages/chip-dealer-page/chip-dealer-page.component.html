@@ -1,0 +1,59 @@
+<h2> Repartidor de fichas de poker </h2>
+<hr>
+
+<div class="row">
+  <div class="col">
+    <form>
+
+      <div class="mb-3 row">
+        <!-- <div class="col-sm-1"></div> -->
+        <label class="col-sm-3 col-form-label">Jugadores</label>
+        <div class="col-sm-3">
+          <!-- <button class="btn btn-primary">+</button> -->
+          <input type="number"
+            class="form-control"
+            >
+          <!-- <button class="btn btn-primary">-</button> -->
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <!-- <div class="col-sm-1"></div> -->
+        <label class="col-sm-3 col-form-label">Moneda</label>
+        <div class="col-sm-3">
+          <select class="form-select" aria-label="Default select example">
+            <option selected>Seleccione una moneda</option>
+            <option value="1">S/.</option>
+            <option value="2">US$</option>
+            <option value="3">€</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="mb-3 row">
+        <!-- <div class="col-sm-1"></div> -->
+        <label class="col-sm-3 col-form-label">Monto de ingreso</label>
+        <div class="col-sm-3">
+          <!-- <button class="btn btn-primary">+</button> -->
+          <input type="text"
+            class="form-control"
+            >
+          <!-- <button class="btn btn-primary">-</button> -->
+        </div>
+      </div>
+
+      <div class="grid nm-8 pt-2">
+        <div class="col-12 sm:col-4 md:col-3 xl:col-2"
+          *ngFor="let chip of chips">
+
+          <poker-chip [chip]="chip" [moneySimbol]="moneySimbol"></poker-chip>
+
+        </div>
+
+      </div>
+
+
+    </form>
+  </div>
+</div>
+
