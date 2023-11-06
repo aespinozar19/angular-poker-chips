@@ -1,4 +1,27 @@
-img {
-  height: 50px;
-  width: 80px;
+.poker-chip {
+  width: 75px;
+  height: 75px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-weight: bold;
+  font-size: 15px;
+  font-family: 'Arial Black', sans-serif;
+  text-transform: uppercase;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+  position: relative;
+  margin: 8px;
+  cursor: pointer;
+  border: 4px solid #000;
 }
+.chip-1 { background-color: #e74c3c; border: 5px solid #000; } /* $1 */
+.chip-5 { background-color: #3498db; border: 5px solid #000; } /* $5 */
+.chip-10 { background-color: #2ecc71; border: 5px solid #000; } /* $10 */
+.chip-25 { background-color: #f39c12; border: 5px solid #000; } /* $25 */
+.chip-50 { background-color: #9b59b6; border: 5px solid #000; } /* $50 */
+.chip-100 { background-color: #e67e22; border: 5px solid #000; } /* $100 */
+.chip-500 { background-color: #27ae60; border: 5px solid #000; } /* $500 */
+.chip-1000 { background-color: #34495e; border: 5px solid #000; } /* $1000 */
+.chip-5000 { background-color: #f1c40f; border: 5px solid #000; } /* $5000 */
+.chip-10000 { background-color: #95a5a6; border: 5px solid #000; } /* $10000 */

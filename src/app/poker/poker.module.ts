@@ -6,6 +6,7 @@ import { ValueChipDialogComponent } from './components/value-chip-dialog/value-c
 import { ChipImagePipe } from './pipes/chip-image.pipe';
 import { ChipDealerPageComponent } from './pages/chip-dealer-page/chip-dealer-page.component';
 import { PokerRoutingModule } from './poker-routing.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -19,6 +20,7 @@ import { PokerRoutingModule } from './poker-routing.module';
   imports: [
     CommonModule,
     PokerRoutingModule,
+    ReactiveFormsModule,
 
   ]
 })

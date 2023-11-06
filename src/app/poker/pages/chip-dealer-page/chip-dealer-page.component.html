@@ -1,59 +1,120 @@
 <h2> Repartidor de fichas de poker </h2>
 <hr>
 
-<div class="row">
-  <div class="col">
-    <form>
 
-      <div class="mb-3 row">
-        <!-- <div class="col-sm-1"></div> -->
-        <label class="col-sm-3 col-form-label">Jugadores</label>
-        <div class="col-sm-3">
-          <!-- <button class="btn btn-primary">+</button> -->
-          <input type="number"
-            class="form-control"
-            >
-          <!-- <button class="btn btn-primary">-</button> -->
-        </div>
-      </div>
-
-      <div class="mb-3 row">
-        <!-- <div class="col-sm-1"></div> -->
-        <label class="col-sm-3 col-form-label">Moneda</label>
-        <div class="col-sm-3">
-          <select class="form-select" aria-label="Default select example">
-            <option selected>Seleccione una moneda</option>
-            <option value="1">S/.</option>
-            <option value="2">US$</option>
-            <option value="3">€</option>
-          </select>
-        </div>
-      </div>
-
-      <div class="mb-3 row">
-        <!-- <div class="col-sm-1"></div> -->
-        <label class="col-sm-3 col-form-label">Monto de ingreso</label>
-        <div class="col-sm-3">
-          <!-- <button class="btn btn-primary">+</button> -->
-          <input type="text"
-            class="form-control"
-            >
-          <!-- <button class="btn btn-primary">-</button> -->
-        </div>
-      </div>
-
-      <div class="grid nm-8 pt-2">
-        <div class="col-12 sm:col-4 md:col-3 xl:col-2"
-          *ngFor="let chip of chips">
-
-          <poker-chip [chip]="chip" [moneySimbol]="moneySimbol"></poker-chip>
-
-        </div>
-
-      </div>
-
-
-    </form>
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()">
+  <div class="mb-3 row">
+    <!-- <div class="col-sm-1"></div> -->
+    <label class="col-sm-3 col-form-label">Jugadores</label>
+    <div class="col-sm-3">
+      <!-- <button class="btn btn-primary">+</button> -->
+      <input type="number"
+        formControlName="quantityPlayers"
+        class="form-control"
+        >
+      <!-- <button class="btn btn-primary">-</button> -->
+    </div>
   </div>
-</div>
+  <div class="mb-3 row">
+    <!-- <div class="col-sm-1"></div> -->
+    <label class="col-sm-3 col-form-label">Moneda</label>
+    <div class="col-sm-3">
+      <select class="form-select" aria-label="Default select example">
+        <option selected>Seleccione una moneda</option>
+        <option value="1">S/.</option>
+        <option value="2">US$</option>
+        <option value="3">€</option>
+      </select>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <!-- <div class="col-sm-1"></div> -->
+    <label class="col-sm-3 col-form-label">Monto de ingreso</label>
+    <div class="col-sm-3">
+      <input type="text"
+        formControlName="amount"
+        class="form-control"
+        placeholder="Monto por jugador">
 
+    </div>
+  </div>
+  <!-- <div class="grid nm-8 pt-2">
+    <div class="col-12 sm:col-4 md:col-3 xl:col-2"
+      *ngFor="let chip of chips">
+      <poker-chip [chip]="chip" [moneySimbol]="moneySimbol"></poker-chip>
+      </div>
+      </div> -->
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Agregar ficha</label>
+    <div class="col-sm-9">
+      <div class="input-group">
+        <input type="color"
+          class="form-control form-control-color"
+          id="exampleColorInput"
+          value="#563d7c"
+          formControlName="color"
+          title="Choose your color">
+        <input class="form-control"
+          placeholder="Asignar valor"
+          formControlName="chipValue"
+          >
+        <input class="form-control"
+          placeholder="# fichas disponibles"
+          formControlName="chipsAvailable"
+          >
+        <button (click)="onAddChip()"
+                    class="btn btn-outline-primary"
+                    type="button">
+                Agregar
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="mb-3 row">
+    <label class="col-sm-3 col-form-label">Fichas agregadas</label>
+    <div class="col-sm-9">
+      <!-- <poker-chip [chip]="" ></poker-chip> -->
+      <div class="mb-1"
+      *ngFor="let chip of chips">
+        <div class="input-group">
+            <poker-chip [chip]="chip"></poker-chip>
+        </div>
+
+        <button (click)="onDeleteChip(chip)"
+          class="btn btn-outline-danger"
+          type="button">
+          <i class="bi bi-trash"></i> Eliminar
+        </button>
+
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-sm-12">
+      <span class="form-text text-danger">
+        Se prioriza repartir las fichas de menor valor
+      </span>
+        <button type="submit"
+                class="btn btn-primary float-end"
+                >
+                <!-- [disabled]="myForm.invalid" -->
+            Repartir
+        </button>
+    </div>
+  </div>
+</form>
+
+
+
+
+<span>Valid</span>
+<pre>{{ myForm.valid| json }}</pre>
+<br>
+
+<span>Value</span>
+<pre>{{  myForm.value | json }}</pre>
+<br>
+
+<span>Fichas agregadas</span>
+<!-- <pre>{{ colorRGBA.valid | json }}</pre>
+<pre>{{ colorRGBA.value | json }}</pre> -->

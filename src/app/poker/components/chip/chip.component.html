@@ -1,7 +1,20 @@
-
-
-<img [src]="chip | chipImage" (click)="Choose(chip)">
-<br>
-<span> {{ chip.color.toString() }} </span>
-<br>
-<span> {{ moneySimbol }} {{  chip.value }} </span>
+<div class="row">
+  <!-- <div id="myDiv" class="col-lg-4 col-md-6 col-sm-6">
+      <div class="poker-chip chip-1" onclick="mostrarAlerta(myDiv.style.backgroundColor)">{{ moneySimbol }}</div>
+  </div>
+  <div class="col-lg-4 col-md-6 col-sm-6">
+      <div class="poker-chip chip-5" onclick="mostrarAlerta(5)">$5</div>
+  </div> -->
+  <div class="col-sm-3 poker-chip" [ngStyle]="{'background-color': chip.color}" >
+    <!-- <span>{{ chip.value }}</span> -->
+    <div>{{ chip.value }}</div>
+    <br>
+    <!-- <div style="font-size: 13px;">{{ chip.quantityAvailable }}</div> -->
+  </div>
+  <!-- <div class="col-sm-3" style="justify-content: center;
+  align-items: center;">
+    <span>{{ chip.quantityAvailable }}</span>
+  </div> -->
+  <!-- Repite las fichas para otros valores -->
+</div>
+<!-- Repite las filas según sea necesario -->

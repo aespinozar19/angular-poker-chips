@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Color, Money, PokerChip } from '../interfaces/poker-chip.interfaces';
+import { Money, PokerChip } from '../interfaces/poker-chip.interfaces';
 import { Observable, of } from 'rxjs';
 
 @Injectable({
@@ -42,12 +42,7 @@ export class ChipsServices {
   }
 
   setInitialChips(): void {
-    this.chips.push(
-      { color: Color.blue, value: 1, quantityAvailable: 0 },
-      { color: Color.pink, value: 2, quantityAvailable: 0 },
-      { color: Color.red, value: 4, quantityAvailable: 0 },
-      { color: Color.white, value: 10, quantityAvailable: 0 },
-    );
+
   }
 
   setInitialMoney(): void {

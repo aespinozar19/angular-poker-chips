@@ -11,8 +11,8 @@ export class ChipComponent implements OnInit {
   @Input()
   public chip!: PokerChip;
 
-  @Input()
-  public moneySimbol!: string;
+  // @Input()
+  // public moneySimbol!: string;
 
   ngOnInit(): void {
     if ( !this.chip ) throw Error('Chip property is required!');
