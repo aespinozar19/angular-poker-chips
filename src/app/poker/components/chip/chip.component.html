@@ -11,10 +11,20 @@
     <br>
     <!-- <div style="font-size: 13px;">{{ chip.quantityAvailable }}</div> -->
   </div>
-  <!-- <div class="col-sm-3" style="justify-content: center;
+  <div class="col-sm-3" style="justify-content: center;
   align-items: center;">
-    <span>{{ chip.quantityAvailable }}</span>
-  </div> -->
+    <span>Disp. : {{ chip.quantityAvailable }}</span>
+  </div>
+
+  <div class="col-sm-3" style="justify-content: center;
+  align-items: center;">
+    <span>PerPerson. : {{ chip.quantityPerPerson }}</span>
+  </div>
+
+  <div class="col-sm-3" style="justify-content: center;
+  align-items: center;">
+    <span>Monto Repartido en esta moneda : {{ chip.quantityPerPerson }}</span>
+  </div>
   <!-- Repite las fichas para otros valores -->
 </div>
 <!-- Repite las filas según sea necesario -->
