@@ -17,10 +17,10 @@ export class ChipDealerPageComponent implements OnInit {
   public montoResidual: number = 0;
 
   public myForm: FormGroup = this.fb.group({
-    quantityPlayers: [4, [ Validators.required, Validators.min(2)]],
-    amount: [100, [ Validators.required, Validators.min(10) ]],
-    money: ['soles', [ Validators.required ]],
-    moneySimbol: ['S/ ', [ Validators.required ]],
+    quantityPlayers: [4, [Validators.required, Validators.min(2)]],
+    amount: [114, [Validators.required, Validators.min(10)]],
+    money: ['soles', [Validators.required]],
+    moneySimbol: ['S/ ', [Validators.required]],
     chipsAvailable: ['# fichas disp.'],
     chipValue: ['valor'],
     color: ['#563d7c']
@@ -30,10 +30,14 @@ export class ChipDealerPageComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private chipsServices: ChipsServices,
-  ) {}
+  ) { }
 
-  onDeleteChip( chip: PokerChip ): void {
+  onDeleteChip(chip: PokerChip): void {
     console.log('Eliminar item');
+    const index = this.chips.indexOf(chip);
+    if (index !== -1) {
+      this.chips.splice(index, 1);
+    }
   }
 
   onSubmit(): void {
@@ -42,73 +46,94 @@ export class ChipDealerPageComponent implements OnInit {
     console.log('Monto total a repartir en fichas : ', totalAmount);
     //Ordenar fichas
     const newChips = this.chips
-      .sort( (a: PokerChip, b: PokerChip) => {
-        if ( a.value > b.value ){
+      .sort((a: PokerChip, b: PokerChip) => {
+        if (a.value > b.value) {
           return 1;
         }
-        if ( a.value < b.value ){
+        if (a.value < b.value) {
           return -1;
         }
         return 0;
       });
 
     //Recorrer fichas por valor
-    newChips.flatMap( chip => {
-      const MaxFichasDisponibles: number = Math.floor( chip.quantityAvailable / this.numberOfPlayers.value );
-      console.log(`Fichas de valor '${ chip.value }' disponibles por jugador `, MaxFichasDisponibles);
-      const totalXValor: number = ( MaxFichasDisponibles * this.numberOfPlayers.value * chip.value );
-      console.log( totalXValor )
-      if ( totalAmount > totalXValor ) {
+    newChips.flatMap(chip => {
+      const MaxFichasDisponibles: number = Math.floor(chip.quantityAvailable / this.numberOfPlayers.value);
+      console.log(`Fichas de valor '${chip.value}' disponibles por jugador `, MaxFichasDisponibles);
+      const totalXValor: number = (MaxFichasDisponibles * this.numberOfPlayers.value * chip.value);
+      console.log(totalXValor)
+      if (totalAmount > totalXValor) {
         chip.quantityPerPerson = MaxFichasDisponibles;
         totalAmount = totalAmount - totalXValor;
         this.montoResidual = totalAmount;
-        console.log(`Monto residual por repartir: ${ totalAmount } `);
+        console.log(`Monto residual por repartir: ${totalAmount} `);
       } else {
-        for (let index = 0; index < MaxFichasDisponibles; index++) {
-          // const element = array[index];
+        chip.quantityPerPerson = 0;
+        const valorFicha = chip.value;
+        const montoResidualPorJugador = (this.montoResidual / this.numberOfPlayers.value);
+        if (montoResidualPorJugador >= valorFicha) {
+          console.log("Repartir fichas de valor: ", valorFicha);
+
+          const cantidadMaximaDeFichasPosibles = Math.floor(montoResidualPorJugador / valorFicha);
+          console.log('cantidadMaximaDeFichasPosibles', cantidadMaximaDeFichasPosibles);
+
+          chip.quantityPerPerson = cantidadMaximaDeFichasPosibles;
+          totalAmount = totalAmount - (cantidadMaximaDeFichasPosibles * valorFicha * this.numberOfPlayers.value);
+          this.montoResidual = totalAmount;
 
         }
-        chip.quantityPerPerson = MaxFichasDisponibles;
-        totalAmount = totalAmount - totalXValor;
-        this.montoResidual = totalAmount;
-        console.log(`Monto residual por repartir: ${ totalAmount } `);
       }
     });
+
+    this.montoResidual = totalAmount / this.numberOfPlayers.value;
+
+    // console.log(`Monto residual por repartir:`, (totalAmount / this.numberOfPlayers.value));
 
     console.log(newChips);
     console.log('finish')
 
-    // const qOfChips: number = totalAmount/
 
   }
 
   getChipsTestInit(): void {
     this.chips.push({
       color: '#FF5733',
-      value: 0.8 ,
+      value: 5,
       quantityAvailable: 15
     });
     this.chips.push({
       color: '#C2604B',
-      value: 0.9 ,
+      value: 2,
       quantityAvailable: 10
     });
     this.chips.push({
       color: '#B5C24B',
-      value: 0.5 ,
+      value: 1,
       quantityAvailable: 20
+    });
+    this.chips.push({
+      color: '#FF5733',
+      value: 10,
+      quantityAvailable: 20
+    });
+    this.chips.push({
+      color: '#FF5733',
+      value: 20,
+      quantityAvailable: 2
+    });
+    this.chips.push({
+      color: '#FF5733',
+      value: 25,
+      quantityAvailable: 8
     });
   }
 
   ngOnInit(): void {
-    // this.chipsServices.getChips()
-    //   .subscribe( chips => this.chips = chips );
     this.getChipsTestInit();
-    // console.log( this.chips );
   }
 
   changeTypeMoney(e: any) {
-    console.log( e );
+    console.log(e);
   }
 
   get pokerChipColor() {
@@ -132,31 +157,27 @@ export class ChipDealerPageComponent implements OnInit {
   }
 
 
-  validateChipValueExist( value: number, chips: PokerChip[] ): boolean {
+  validateChipValueExist(value: number, chips: PokerChip[]): boolean {
     return true;
   }
 
-  validateChipColorExist( color: string, chips: PokerChip[] ): boolean {
+  validateChipColorExist(color: string, chips: PokerChip[]): boolean {
     return true;
   }
 
   onAddChip(): void {
-    console.log('color:', this.pokerChipColor.value );
-    console.log('value:', this.chipValue.value );
-    console.log('value:', this.chipsAvailable.value );
 
-
-    if ( isNaN(this.chipValue.value) || isNaN(this.chipsAvailable.value) ) {
+    if (isNaN(this.chipValue.value) || isNaN(this.chipsAvailable.value)) {
       return;
     }
 
-    if( !this.validateChipValueExist ) return;
+    if (!this.validateChipValueExist) return;
 
-    if( !this.validateChipColorExist ) return;
+    if (!this.validateChipColorExist) return;
 
     this.chips.push({
       color: this.pokerChipColor.value,
-      value: this.chipValue.value ,
+      value: this.chipValue.value,
       quantityAvailable: this.chipsAvailable.value
     });
   }

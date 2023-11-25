@@ -1,30 +1,29 @@
-<div class="row">
-  <!-- <div id="myDiv" class="col-lg-4 col-md-6 col-sm-6">
-      <div class="poker-chip chip-1" onclick="mostrarAlerta(myDiv.style.backgroundColor)">{{ moneySimbol }}</div>
-  </div>
-  <div class="col-lg-4 col-md-6 col-sm-6">
-      <div class="poker-chip chip-5" onclick="mostrarAlerta(5)">$5</div>
-  </div> -->
-  <div class="col-sm-3 poker-chip" [ngStyle]="{'background-color': chip.color}" >
-    <!-- <span>{{ chip.value }}</span> -->
-    <div>{{ chip.value }}</div>
-    <br>
-    <!-- <div style="font-size: 13px;">{{ chip.quantityAvailable }}</div> -->
-  </div>
-  <div class="col-sm-3" style="justify-content: center;
-  align-items: center;">
-    <span>Disp. : {{ chip.quantityAvailable }}</span>
+
+<div class="row mb-3">
+  <div class="col-sm-3">
+    <div class="p-3 border poker-chip" [ngStyle]="{'background-color': chip.color}">
+      <div>{{ chip.value }}</div>
+    </div>
   </div>
 
-  <div class="col-sm-3" style="justify-content: center;
-  align-items: center;">
-    <span>PerPerson. : {{ chip.quantityPerPerson }}</span>
+  <div class="col-sm-3 d-flex align-items-center">
+    <div>
+      <span class="d-block">Fichas disponibles:</span>
+      <span class="fw-bold">{{ chip.quantityAvailable }}</span>
+    </div>
   </div>
 
-  <div class="col-sm-3" style="justify-content: center;
-  align-items: center;">
-    <span>Monto Repartido en esta moneda : {{ chip.quantityPerPerson }}</span>
+  <div class="col-sm-3 d-flex align-items-center">
+    <div>
+      <span class="d-block">Fichas por persona:</span>
+      <span class="fw-bold">{{ chip.quantityPerPerson }}</span>
+    </div>
   </div>
-  <!-- Repite las fichas para otros valores -->
+
+  <div class="col-sm-3 d-flex align-items-center">
+    <div>
+      <span class="d-block">Monto repartido por persona:</span>
+      <span class="fw-bold">{{ chip.quantityPerPerson! * chip.value * chip.quantityPerPerson!}}</span>
+    </div>
+  </div>
 </div>
-<!-- Repite las filas según sea necesario -->
